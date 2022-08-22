@@ -1,0 +1,62 @@
+/* Utilities
+   ========================================================================== */
+
+// placeholder
+
+%myhotel-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.myhotel-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin myhotel-truncate-lines($size) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $size;
+  overflow: hidden;
+}
+
+// Mixin
+
+@mixin myhotel-flexbox-center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin myhotel-flexbox-start() {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@mixin myhotel-flexbox-space-between() {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin myhotel-flexbox-space-around() {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@mixin myhotel-flexbox-param($display, $align, $justify) {
+  display: $display;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin myhotel-font-details($size, $line-h, $weight, $color) {
+  font-size: $size;
+  line-height: $line-h;
+  font-weight: $weight;
+  color: $color;
+}

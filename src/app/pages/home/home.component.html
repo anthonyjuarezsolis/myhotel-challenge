@@ -1,0 +1,111 @@
+<div class="home-component">
+  <div class="home-component__container">
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Registro">
+        <form
+          [formGroup]="form"
+          class="home-component__form"
+          autocomplete="off"
+        >
+          <h1>Registro de habitaciones</h1>
+
+          <mat-card class="home-component__card home-component__card--more">
+            <div class="home-component__inputs">
+              <mat-form-field
+                class="home-component__element"
+                appearance="outline"
+              >
+                <mat-label>Nombre: </mat-label>
+
+                <input
+                  placeholder="Ejemplo: A3-100"
+                  formControlName="name"
+                  matInput
+                />
+
+                <mat-error *ngIf="formError['name'].errors">
+                  {{ messageRequiredItem }}</mat-error
+                >
+              </mat-form-field>
+
+              <mat-form-field
+                class="home-component__element"
+                appearance="outline"
+              >
+                <mat-label>Piso: </mat-label>
+                <input placeholder="Piso 09" formControlName="flat" matInput />
+                <mat-error *ngIf="formError['flat'].errors">
+                  {{ messageRequiredItem }}</mat-error
+                >
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field
+                class="home-component__textarea"
+                appearance="outline"
+              >
+                <mat-label>Descripción: </mat-label>
+                <textarea formControlName="description" matInput></textarea>
+              </mat-form-field>
+            </div>
+          </mat-card>
+
+          <mat-card class="home-component__card">
+            <mat-form-field
+              class="home-component__element"
+              appearance="outline"
+            >
+              <mat-label>Nro de camas: </mat-label>
+              <input formControlName="beds" type="number" matInput />
+              <mat-error *ngIf="formError['beds'].errors">
+                {{ messageRequiredItem }}</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field
+              class="home-component__element"
+              appearance="outline"
+            >
+              <mat-label>Rango de precio</mat-label>
+              <mat-select formControlName="price">
+                <mat-option value="green">
+                  <div class="home-component__option">
+                    <div
+                      class="home-component__status home-component__status--green"
+                    ></div>
+                    < $300
+                  </div>
+                </mat-option>
+                <mat-option value="yellow">
+                  <div class="home-component__option">
+                    <div
+                      class="home-component__status home-component__status--yellow"
+                    ></div>
+                    $301 - $999
+                  </div></mat-option
+                >
+                <mat-option value="red">
+                  <div class="home-component__option">
+                    <div
+                      class="home-component__status home-component__status--red"
+                    ></div>
+                    > $1000
+                  </div></mat-option
+                >
+              </mat-select>
+              <mat-error *ngIf="formError['price'].errors">
+                {{ messageRequiredItem }}</mat-error
+              >
+            </mat-form-field>
+          </mat-card>
+
+          <button mat-flat-button color="warn" (click)="sendForm()">
+            Guardar
+          </button>
+        </form>
+      </mat-tab>
+      <mat-tab label="Lista"> </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
