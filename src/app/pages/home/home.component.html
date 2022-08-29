@@ -157,7 +157,7 @@
           <span class="home-component__list-subtitle">{{ item?.beds }}</span>
         </p>
 
-        <div *ngFor="let element of item?.optionsPrice">
+        <ng-container *ngFor="let element of item?.optionsPrice">
           <div
             class="home-component__list-title"
             *ngIf="item?.price === element?.id"
@@ -172,7 +172,7 @@
               element?.value
             }}</span>
           </div>
-        </div>
+        </ng-container>
       </mat-card>
       <mat-card
         class="home-component__card home-component__card--notFound"
