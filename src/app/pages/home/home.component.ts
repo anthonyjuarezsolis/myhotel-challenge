@@ -8,6 +8,9 @@ import {
 } from "@angular/forms";
 import { FirebaseCrudService } from "src/app/services/firebase.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { map } from "rxjs/operators";
+import { MatDialog } from "@angular/material/dialog";
+import { ModalEditComponent } from "src/app/commons/modals/modal-edit/modal-edit.component";
 
 @Component({
   selector: "app-home",
@@ -18,35 +21,29 @@ export class HomeComponent implements OnInit {
   public registerData: Object = {};
   public form: FormGroup;
   public messageRequiredItem: string;
+  public link: string;
+  public firebaseListInfo: Array<any>;
+  public disableButton: boolean;
 
   constructor(
     private readonly fb: FormBuilder,
     private snackBar: MatSnackBar,
+    public dialog: MatDialog,
     public firebaseCrudService: FirebaseCrudService
   ) {
     this.form = this.createForm();
+    this.firebaseListInfo = [];
+
     this.messageRequiredItem = "Campo obligatorio";
+    this.link = "registro";
+    this.disableButton = false;
   }
 
-  ngOnInit() {
-    let dateActually = formatDate(Date.now(), "m-d-yym, h:mm a", "en-US");
-    this.registerData = {
-      name: "hi",
-      id: "0001",
-      creationDate: dateActually,
-      // status: [
-
-      // ],
-      status: "1",
-      price: 100,
-      description: "description",
-      stock: 2,
-    };
-
-    console.log(dateActually);
+  public ngOnInit() {
+    this.retrieveList();
   }
 
-  createForm() {
+  public createForm() {
     return this.fb.group({
       name: ["", Validators.required],
       flat: ["", Validators.required],
@@ -60,23 +57,89 @@ export class HomeComponent implements OnInit {
     return this.form.controls;
   }
 
-  sendForm() {
-    console.log(this.form.value);
-
+  public sendForm() {
     if (this.form.valid) {
-      this.firebaseCrudService.create(this.form.value).then(() => {
+      this.disableButton = true;
+      let dateActually = formatDate(Date.now(), "M-d-yy, h:mm a", "en-US");
+      let optionsPrice = [
+        {
+          id: "green",
+          value: "< $300",
+        },
+        {
+          id: "yellow",
+          value: "$301 - $999",
+        },
+        {
+          id: "red",
+          value: "> $1000",
+        },
+      ];
+      this.registerData = {
+        name: this.form.value?.name,
+        creationDate: dateActually,
+        flat: this.form.value?.flat,
+        description: this.form.value?.description,
+        beds: this.form.value?.beds,
+        price: this.form.value?.price,
+        optionsPrice,
+      };
+
+      this.firebaseCrudService.create(this.registerData).then(() => {
         this.openSnackBar();
-        this.form.reset();
-        this.form.clearValidators();
-        this.form.markAsUntouched();
-        this.form.markAsPristine();
+        this.resetAndCleanForm();
+        this.disableButton = false;
       });
     }
   }
 
-  openSnackBar() {
+  public openSnackBar() {
     this.snackBar.open("Registro exitoso!", "", {
       duration: 1200,
     });
+  }
+
+  public resetAndCleanForm() {
+    this.form.reset();
+    this.form.controls["name"].setErrors(null);
+    this.form.controls["flat"].setErrors(null);
+    this.form.controls["beds"].setErrors(null);
+    this.form.controls["price"].setErrors(null);
+  }
+
+  public changeView(link: string) {
+    this.link = link;
+  }
+
+  public retrieveList(): void {
+    this.firebaseCrudService
+      .getAll()
+      .snapshotChanges()
+      .pipe(
+        map((changes) =>
+          changes.map((c) => ({
+            id: c.payload.doc.id,
+            ...c.payload.doc.data(),
+          }))
+        )
+      )
+      .subscribe((data) => {
+        this.firebaseListInfo = data;
+      });
+  }
+
+  public onModalEdit(dataEdit: any) {
+    this.dialog.open(ModalEditComponent, {
+      width: "489px",
+      panelClass: "custom-container-no-padding",
+      data: {
+        title: "Editar habitación seleccionada",
+        dataEdit,
+      },
+    });
+  }
+
+  public onDelete(id: string) {
+    this.firebaseCrudService.delete(id);
   }
 }

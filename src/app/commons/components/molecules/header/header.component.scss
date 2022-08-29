@@ -1,0 +1,25 @@
+@use "/src/app/commons/base/colors" as colors;
+@use "/src/app/commons/utilities/utilities" as utilities;
+@use "/src/app/commons/base/breakpoints" as breakpoints;
+
+.header {
+  width: auto;
+  height: 80px;
+  background: colors.$white;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.05);
+  @include utilities.myhotel-flexbox-param(flex, center, flex-start);
+  padding: 0 112px;
+
+  @include breakpoints.medium {
+    height: 72px;
+    padding: 0 16px;
+  }
+
+  &__logo {
+    height: 30px;
+
+    @include breakpoints.medium {
+      height: 28px;
+    }
+  }
+}

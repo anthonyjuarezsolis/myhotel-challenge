@@ -1,111 +1,192 @@
+<myhotel-header></myhotel-header>
+
 <div class="home-component">
   <div class="home-component__container">
-    <mat-tab-group mat-align-tabs="center">
-      <mat-tab label="Registro">
-        <form
-          [formGroup]="form"
-          class="home-component__form"
-          autocomplete="off"
+    <div class="home-component__menu">
+      <a class="home-component__link" (click)="changeView('registro')"
+        >Registro</a
+      >
+      <mat-divider class="home-component__divider"></mat-divider>
+      <a class="home-component__link" (click)="changeView('lista')">Lista</a>
+    </div>
+
+    <form
+      *ngIf="link === 'registro'"
+      [formGroup]="form"
+      class="home-component__form"
+      autocomplete="off"
+    >
+      <mat-card class="home-component__card home-component__card--more">
+        <div class="home-component__inputs">
+          <mat-form-field class="home-component__element" appearance="outline">
+            <mat-label>Nombre: </mat-label>
+
+            <input
+              placeholder="Ejemplo: A3-100"
+              formControlName="name"
+              matInput
+            />
+
+            <mat-error *ngIf="formError['name'].errors">
+              {{ messageRequiredItem }}</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field class="home-component__element" appearance="outline">
+            <mat-label>Piso: </mat-label>
+            <input placeholder="Piso 09" formControlName="flat" matInput />
+            <mat-error *ngIf="formError['flat'].errors">
+              {{ messageRequiredItem }}</mat-error
+            >
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="home-component__textarea" appearance="outline">
+            <mat-label>Descripción: </mat-label>
+            <textarea formControlName="description" matInput></textarea>
+          </mat-form-field>
+        </div>
+      </mat-card>
+
+      <mat-card class="home-component__card">
+        <mat-form-field class="home-component__element" appearance="outline">
+          <mat-label>Nro de camas: </mat-label>
+          <input formControlName="beds" type="number" matInput />
+          <mat-error *ngIf="formError['beds'].errors">
+            {{ messageRequiredItem }}</mat-error
+          >
+        </mat-form-field>
+
+        <mat-form-field class="home-component__element" appearance="outline">
+          <mat-label>Rango de precio</mat-label>
+          <mat-select formControlName="price">
+            <mat-option value="green">
+              <div class="home-component__option">
+                <div
+                  class="home-component__status home-component__status--green"
+                ></div>
+                < $300
+              </div>
+            </mat-option>
+            <mat-option value="yellow">
+              <div class="home-component__option">
+                <div
+                  class="home-component__status home-component__status--yellow"
+                ></div>
+                $301 - $999
+              </div></mat-option
+            >
+            <mat-option value="red">
+              <div class="home-component__option">
+                <div
+                  class="home-component__status home-component__status--red"
+                ></div>
+                > $1000
+              </div></mat-option
+            >
+          </mat-select>
+          <mat-error *ngIf="formError['price'].errors">
+            {{ messageRequiredItem }}</mat-error
+          >
+        </mat-form-field>
+      </mat-card>
+
+      <div class="home-component__button">
+        <button
+          mat-flat-button
+          color="warn"
+          [disabled]="disableButton"
+          (click)="sendForm()"
         >
-          <h1>Registro de habitaciones</h1>
+          Guardar
+        </button>
+      </div>
+    </form>
+    <div *ngIf="link === 'lista'" class="home-component__form">
+      <mat-card
+        class="home-component__card home-component__card--list"
+        *ngFor="let item of firebaseListInfo; let i = index"
+        style="flex-direction: column"
+      >
+        <div class="home-component__card-header">
+          <div class="home-component__badge">ID: {{ item?.id }}</div>
 
-          <mat-card class="home-component__card home-component__card--more">
-            <div class="home-component__inputs">
-              <mat-form-field
-                class="home-component__element"
-                appearance="outline"
-              >
-                <mat-label>Nombre: </mat-label>
+          <div class="home-component__actions">
+            <myhotel-icon
+              name="edit"
+              color="#224451"
+              size="24"
+              type="outlined"
+              mode="button"
+              (click)="onModalEdit(item)"
+            ></myhotel-icon>
+            <myhotel-icon
+              (click)="onDelete(item?.id)"
+              name="delete"
+              color="#41a4d0"
+              size="24"
+              type="outlined"
+              mode="button"
+            ></myhotel-icon>
+          </div>
+        </div>
 
-                <input
-                  placeholder="Ejemplo: A3-100"
-                  formControlName="name"
-                  matInput
-                />
+        <p class="home-component__list-title">
+          Fecha:
+          <span class="home-component__list-subtitle">{{
+            item?.creationDate
+          }}</span>
+        </p>
+        <p class="home-component__list-title">
+          Nombre:
+          <span class="home-component__list-subtitle">{{ item?.name }}</span>
+        </p>
+        <p class="home-component__list-title">
+          Piso:
+          <span class="home-component__list-subtitle">{{ item?.flat }}</span>
+        </p>
+        <p class="home-component__list-title">
+          Descripción:
+          <span class="home-component__list-subtitle">{{
+            item?.description
+          }}</span>
+        </p>
+        <p class="home-component__list-title">
+          Nro de camas:
+          <span class="home-component__list-subtitle">{{ item?.beds }}</span>
+        </p>
 
-                <mat-error *ngIf="formError['name'].errors">
-                  {{ messageRequiredItem }}</mat-error
-                >
-              </mat-form-field>
-
-              <mat-form-field
-                class="home-component__element"
-                appearance="outline"
-              >
-                <mat-label>Piso: </mat-label>
-                <input placeholder="Piso 09" formControlName="flat" matInput />
-                <mat-error *ngIf="formError['flat'].errors">
-                  {{ messageRequiredItem }}</mat-error
-                >
-              </mat-form-field>
-            </div>
-
-            <div>
-              <mat-form-field
-                class="home-component__textarea"
-                appearance="outline"
-              >
-                <mat-label>Descripción: </mat-label>
-                <textarea formControlName="description" matInput></textarea>
-              </mat-form-field>
-            </div>
-          </mat-card>
-
-          <mat-card class="home-component__card">
-            <mat-form-field
-              class="home-component__element"
-              appearance="outline"
-            >
-              <mat-label>Nro de camas: </mat-label>
-              <input formControlName="beds" type="number" matInput />
-              <mat-error *ngIf="formError['beds'].errors">
-                {{ messageRequiredItem }}</mat-error
-              >
-            </mat-form-field>
-
-            <mat-form-field
-              class="home-component__element"
-              appearance="outline"
-            >
-              <mat-label>Rango de precio</mat-label>
-              <mat-select formControlName="price">
-                <mat-option value="green">
-                  <div class="home-component__option">
-                    <div
-                      class="home-component__status home-component__status--green"
-                    ></div>
-                    < $300
-                  </div>
-                </mat-option>
-                <mat-option value="yellow">
-                  <div class="home-component__option">
-                    <div
-                      class="home-component__status home-component__status--yellow"
-                    ></div>
-                    $301 - $999
-                  </div></mat-option
-                >
-                <mat-option value="red">
-                  <div class="home-component__option">
-                    <div
-                      class="home-component__status home-component__status--red"
-                    ></div>
-                    > $1000
-                  </div></mat-option
-                >
-              </mat-select>
-              <mat-error *ngIf="formError['price'].errors">
-                {{ messageRequiredItem }}</mat-error
-              >
-            </mat-form-field>
-          </mat-card>
-
-          <button mat-flat-button color="warn" (click)="sendForm()">
-            Guardar
-          </button>
-        </form>
-      </mat-tab>
-      <mat-tab label="Lista"> </mat-tab>
-    </mat-tab-group>
+        <div *ngFor="let element of item?.optionsPrice">
+          <div
+            class="home-component__list-title"
+            *ngIf="item?.price === element?.id"
+          >
+            Rango de precios:
+            <div
+              class="home-component__status home-component__status--{{
+                item?.price
+              }}"
+            ></div>
+            <span class="home-component__list-subtitle">{{
+              element?.value
+            }}</span>
+          </div>
+        </div>
+      </mat-card>
+      <mat-card
+        class="home-component__card home-component__card--notFound"
+        *ngIf="firebaseListInfo.length === 0"
+      >
+        <myhotel-animation-icon
+          name="rqomvqbt"
+          size="200"
+          colorPrimary="#224451"
+          colorSecondary="#41a4d0"
+          trigger="loop"
+        ></myhotel-animation-icon>
+        <h3>No se encontro registros</h3>
+      </mat-card>
+    </div>
   </div>
 </div>

@@ -248,3 +248,12 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
     font-family: "Roboto";
   }
 }
+
+.custom-container-no-padding {
+  mat-dialog-container {
+    padding: 0;
+    overflow: auto;
+    max-height: 96vh;
+    border-radius: 12px;
+  }
+}

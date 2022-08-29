@@ -7,47 +7,135 @@
   background: colors.$background;
   width: 100%;
   min-height: 100vh;
+  @include utilities.myhotel-flexbox-param(flex, flex-start, center);
 
-  &__container {
-    display: flex;
-    width: 70%;
-    max-width: 1440px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 30px 0;
-    flex-direction: column;
+  @include breakpoints.medium {
+    @include utilities.myhotel-flexbox-param(flex, flex-start, center);
+  }
+
+  &__menu {
+    width: 23.33%;
+    height: fit-content;
+    background-color: colors.$white;
+    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 5%);
+    border-radius: 12px;
+    padding: 10px 0;
 
     @include breakpoints.medium {
-      width: 95%;
+      width: 100%;
+    }
+  }
+
+  &__link {
+    width: auto;
+    height: 36px;
+    padding: 8px 20px;
+    transition: 0.5s;
+
+    @include utilities.myhotel-flexbox-param(flex, center, flex-start);
+    @include utilities.myhotel-font-details(16px, 24px, 400, colors.$text-02);
+
+    text-decoration: none;
+
+    &:hover {
+      background: colors.$hover;
+      border-left: 5px solid colors.$text-02;
+      cursor: pointer;
+      @include utilities.myhotel-font-details(16px, 24px, 400, colors.$text-01);
+      transform: scale(0.95);
+    }
+  }
+
+  &__divider {
+    margin: 0 20px;
+  }
+
+  &__container {
+    width: 100%;
+    max-width: 1440px;
+    padding: 40px 0;
+    gap: 64px;
+    @include utilities.myhotel-flexbox-param(flex, flex-start, center);
+
+    @include breakpoints.medium {
+      width: 90%;
+      gap: 32px;
+      flex-direction: column;
+      @include utilities.myhotel-flexbox-param(flex, center, center);
     }
   }
 
   &__form {
     display: flex;
+    width: 58.89%;
     gap: 16px;
-    padding: 30px 0;
     flex-direction: column;
+    @include breakpoints.medium {
+      width: 100%;
+    }
   }
 
   &__card {
     border-radius: 12px;
     background-color: colors.$white;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.05);
-    gap: 30px;
+    gap: 20px;
     display: flex;
 
     @include breakpoints.medium {
       gap: 5px;
     }
 
+    &-header {
+      @include utilities.myhotel-flexbox-param(flex, center, space-between);
+    }
+
     &--more {
+      flex-direction: column;
+    }
+
+    &--list {
+      gap: 10px;
+    }
+
+    &--notFound {
+      gap: 10px;
+      @include utilities.myhotel-flexbox-param(flex, center, center);
       flex-direction: column;
     }
   }
 
+  &__list {
+    &-title {
+      gap: 5px;
+      @include utilities.myhotel-flexbox-param(flex, center, normal);
+      @include utilities.myhotel-font-details(14px, 18px, 400, colors.$text-02);
+      margin: 0;
+    }
+    &-subtitle {
+      @include utilities.myhotel-font-details(14px, 18px, 300, colors.$text-01);
+      margin: 0;
+    }
+  }
+
+  &__badge {
+    background: colors.$text-02;
+    color: colors.$white;
+    border-radius: 12px;
+    padding: 2px 8px;
+    width: fit-content;
+    @include utilities.myhotel-font-details(12px, 18px, 400, colors.$white);
+    user-select: none;
+  }
+
+  &__actions {
+    display: flex;
+    cursor: pointer;
+  }
+
   &__inputs {
     display: flex;
-    gap: 30px;
+    gap: 20px;
 
     @include breakpoints.medium {
       gap: 5px;
@@ -60,6 +148,10 @@
 
   &__textarea {
     width: 100%;
+
+    textarea {
+      height: 120px;
+    }
   }
 
   &__option {
@@ -82,6 +174,17 @@
 
     &--red {
       background: colors.$red;
+    }
+  }
+
+  &__button {
+    margin-top: 10px;
+    @include utilities.myhotel-flexbox-param(flex, center, center);
+    button {
+      width: 194px;
+      height: 44px;
+      box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+      border-radius: 8px;
     }
   }
 }

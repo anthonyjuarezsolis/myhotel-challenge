@@ -20,6 +20,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { MatCardModule } from "@angular/material/card";
+import { MatDividerModule } from "@angular/material/divider";
 
 const MaterialComponentsModules = [
   MatCheckboxModule,
@@ -42,6 +43,7 @@ const MaterialComponentsModules = [
   MatFormFieldModule,
   MatSelectModule,
   MatCardModule,
+  MatDividerModule,
   // More
 ];
 

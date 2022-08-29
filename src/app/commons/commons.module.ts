@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 
 import { MaterialModule } from "../material/material.module";
+import { MyHotelComponents } from "./components";
+import { ModalsComponents } from "./modals";
 
 @NgModule({
   imports: [
@@ -16,7 +18,7 @@ import { MaterialModule } from "../material/material.module";
     ReactiveFormsModule,
     MaterialModule,
   ],
-  declarations: [],
+  declarations: [...MyHotelComponents, ...ModalsComponents],
   exports: [
     CommonModule,
     HttpClientModule,
@@ -24,6 +26,8 @@ import { MaterialModule } from "../material/material.module";
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    ...MyHotelComponents,
+    ...ModalsComponents,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

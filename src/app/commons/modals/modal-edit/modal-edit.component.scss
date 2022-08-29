@@ -1,0 +1,93 @@
+@use "/src/app/commons/base/colors" as colors;
+@use "/src/app/commons/utilities/utilities" as utilities;
+@use "/src/app/commons/base/breakpoints" as breakpoints;
+
+.myhotel-modal {
+  &__edit {
+    max-width: 489px;
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__header {
+    width: 92%;
+    padding: 16px 16px 20px;
+    @include utilities.myhotel-flexbox-param(flex, center, flex-end);
+
+    @include breakpoints.medium {
+      width: 88%;
+    }
+  }
+
+  &__action {
+    cursor: pointer;
+    @include utilities.myhotel-flexbox-param(flex, center, center);
+  }
+
+  &__body {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+
+  &__option {
+    gap: 20px;
+    @include utilities.myhotel-flexbox-param(flex, center, flex-start);
+  }
+
+  &__status {
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+
+    &--green {
+      background: colors.$green;
+    }
+
+    &--yellow {
+      background: colors.$yellow;
+    }
+
+    &--red {
+      background: colors.$red;
+    }
+  }
+
+  &__title {
+    margin-top: 0;
+    margin-bottom: 10px;
+    letter-spacing: 0.246055px;
+    text-align: center;
+    @include utilities.myhotel-font-details(24px, 32px, 600, colors.$text-01);
+
+    @include breakpoints.small {
+      max-width: 100%;
+    }
+  }
+
+  &__button {
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    @include utilities.myhotel-flexbox-param(flex, center, center);
+
+    @include breakpoints.small {
+      padding: 12px 0;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
