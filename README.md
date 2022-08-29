@@ -1,27 +1,43 @@
 # Myhotel Challenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
+El proyecto corre sobre Angular versión 13.3.0.
 
-## Development server
+## Comments:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+El proyecto cumple con lo solicitado para challenge, cualquier comentario me lo hacen saber.
 
-## Code scaffolding
+He usado BEM (Block Element Modifier) para nombrar las clases y Atomic Design para la parte de los componentes que decidi crear.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Decidi no usar Tailwind/Bootstrap porque concidero que para el alcance del proyecto no era necesario,
+personalmente opino que tanto las clases reutilizables que nos da Bootstrap y su Grid system hace que el html sea poco legible,
+y respecto a la parte de su Grid system agrega margenes y paddings que hace dificil alcanzar un grado de igualdar al diseño que nos den, ya sea Figma, etc.
 
-## Build
+He creado algunos SCSS reutilizables como utilitarios, breakpoints, etc que podran encontrar en la carpeta commons, eso con el fin de hacer menos lineas de codigo y poder reutilizarlo en cada vista que sea necesaria.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Para la parte del CRUD decidi usar Firebase por su facilidad de uso, algo que me gusta es que nos permite tener cambios en tiempo real (WebSockets).
 
-## Running unit tests
+Para finalizar solo comentar que todo es responsive, use una libreria externa para la parte de iconos animados, espero que les agrade mi proyecto y el 😺, saludos~!.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Run Project:
 
-## Running end-to-end tests
+Usar los siguientes comandos:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- `npm install`
+- `ng serve -o`
 
-## Further help
+## Tools:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Para este proyecto se uso:
+
+- `Angular 13+`
+- `Angular Material`
+- `Reactive forms`
+- `Firebase | Firestore`
+
+## Live Preview:
+
+El proyecto se encuentra desplegado en el siguiente link: [Github Pages](https://anthonyjuarezsolis.github.io/myhotel-challenge).
+
+## By:
+
+Anthony Juarez Solis [Linkedin](https://www.linkedin.com/in/anthonyjuarez/).
